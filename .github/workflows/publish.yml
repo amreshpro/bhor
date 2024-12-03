@@ -46,5 +46,5 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Ensure that the token is being passed properly
         run: |
-          npm config set '//registry.npmjs.org/:_authToken'="${NPM_TOKEN}"  # Set the auth token
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           npm publish --access public  # Or private, depending on your settings
