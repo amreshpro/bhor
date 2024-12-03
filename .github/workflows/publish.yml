@@ -17,11 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Bun (Install Bun runtime)
+      # Step 2: Set up Bun manually
       - name: Set up Bun
-        uses: o0ragman0o/setup-bun@v1
-        with:
-          bun-version: 'latest'  # Adjust this to the required Bun version
+        run: |
+          curl -fsSL https://bun.sh/install | bash  # Install Bun
+          echo "/root/.bun/bin" >> $GITHUB_PATH       # Add Bun to the PATH
 
       # Step 3: Install dependencies with Bun
       - name: Install dependencies
