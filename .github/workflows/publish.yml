@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       # Step 1: Check out the code
@@ -18,20 +18,25 @@ jobs:
         uses: actions/checkout@v2
 
       # Step 2: Set up Bun manually
-      - name: Set up Bun
+      - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash  # Install Bun
-          echo "/root/.bun/bin" >> $GITHUB_PATH       # Add Bun to the PATH
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH       # Add Bun to the PATH
 
-      # Step 3: Install dependencies with Bun
+      # Step 3: Verify Bun installation
+      - name: Verify Bun installation
+        run: |
+          bun --version  # This will check if Bun is successfully installed
+
+      # Step 4: Install dependencies using Bun
       - name: Install dependencies
         run: bun install  # Using Bun to install dependencies
 
-      # Step 4: Run TypeScript build if needed (optional)
+      # Step 5: Run TypeScript build if needed (optional)
       - name: Build TypeScript
-        run: bun run tsc  # Run TypeScript compiler if needed
+        run: bun run ./index.ts  # Run TypeScript compiler if needed
 
-      # Step 5: Publish package to npm
+      # Step 6: Publish package to npm
       - name: Publish package
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
