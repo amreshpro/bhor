@@ -2,14 +2,33 @@
   "name": "bhor",
   "author": "Amresh Maurya <amresh.terminal@gmail.com>",
   "contributors": [],
-  "repository": "amreshpro/bhor",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amreshpro/bhor.git"
+  },
   "homepage": "https://bhor.netlify.app",
-  "keywords": ["nodejs","bun","http","api","rest","router","restful","app","framework"],
+  "keywords": [
+    "nodejs",
+    "bun",
+    "http",
+    "api",
+    "rest",
+    "router",
+    "restful",
+    "app",
+    "framework"
+  ],
   "version": "0.0.1",
   "description": "I",
   "module": "index.ts",
   "type": "module",
-  "engines":{ "node":">=18","bun":">=1.1.34"},
+  "engines": {
+    "node": ">=18",
+    "bun": ">=1.1.34"
+  },
+  "scripts": {
+    "build":"bun run index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

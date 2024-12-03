@@ -3,23 +3,38 @@ name: Publish Package
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main  # Trigger this action on push to the main branch (adjust as needed)
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  publish:
-    runs-on: ubuntu-22.04
+  build-and-publish:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'  # Use the version appropriate for your project
+      # Step 2: Set up Bun (Install Bun runtime)
+      - name: Set up Bun
+        uses: o0ragman0o/setup-bun@v1
+        with:
+          bun-version: 'latest'  # Adjust this to the required Bun version
 
-    - name: Authenticate with NPM
-      run: npm config set '//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}'
+      # Step 3: Install dependencies with Bun
+      - name: Install dependencies
+        run: bun install  # Using Bun to install dependencies
 
-    - name: Publish package
-      run: npm publish --access public
+      # Step 4: Run TypeScript build if needed (optional)
+      - name: Build TypeScript
+        run: bun run tsc  # Run TypeScript compiler if needed
+
+      # Step 5: Publish package to npm
+      - name: Publish package
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken'="${NPM_TOKEN}"
+          npm publish --access public  # Or private, depending on your settings
