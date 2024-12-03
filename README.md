@@ -1,15 +1,15 @@
 # bhor
 
-To install dependencies:
+To install Bhor:
 
+bun
 ```bash
-bun install
+bun i bhor
+```
+npm
+```bash
+npm i bhor
 ```
 
-To run:
 
-```bash
-bun run index.ts
-```
 
-This project was created using `bun init` in bun v1.1.34. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
