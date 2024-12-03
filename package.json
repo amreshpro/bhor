@@ -18,10 +18,12 @@
     "app",
     "framework"
   ],
+  "license":"MIT",
   "version": "0.0.2",
   "description": "I",
   "module": "index.ts",
   "type": "module",
+  
   "engines": {
     "node": ">=18",
     "bun": ">=1.1.34"
