@@ -37,6 +37,10 @@ jobs:
       - name: Build TypeScript
         run: bun run tsc  # Run TypeScript compiler if needed
 
+
+      - name: Check Environment Variables
+        run: printenv
+
       # Step 6: Publish package to npm
       - name: Publish package
         env:
