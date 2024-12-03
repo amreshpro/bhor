@@ -1,28 +1,25 @@
-name: Publish to NPM
+name: Publish Package
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - main  # Trigger on push to main branch
 
 jobs:
   publish:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org/'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'  # Use the version appropriate for your project
 
-      - name: Install dependencies
-        run: npm install
+    - name: Authenticate with NPM
+      run: npm config set '//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}'
 
-      - name: Publish to NPM
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Publish package
+      run: npm publish --access public
